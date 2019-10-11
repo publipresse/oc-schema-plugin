@@ -1,0 +1,33 @@
+{% put scripts %}
+    {% set schemaArticle = __SELF__.schemaArticle %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ ''|page }}"
+        },
+        "headline": "{{ schemaArticle.headline }}",
+        "image": [
+            {% for image in schemaArticle.image %}
+                "{{ image.path }}"{% if loop.index < schemaArticle.image|length %},{% endif %}
+            {% endfor %}
+        ],
+        "datePublished": "{{ schemaArticle.datePublished|date('c') }}",
+        "dateModified": "{{ schemaArticle.dateModified|date('c') }}",
+        "author": {
+            "@type": "{{ schemaArticle.authorType }}",
+            "name": "{{ schemaArticle.authorName }}"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "{{ schemaArticle.publisherName }}",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ schemaArticle.publisherLogo|theme }}"
+            }
+        }
+    }
+    </script>
+{% endput %}

@@ -1,0 +1,31 @@
+{% put scripts %}
+    {% set schemaProduct = __SELF__.schemaProduct %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "{{ schemaProduct.name }}",
+        "description": "{{ schemaProduct.description }}",
+        "image": [
+            {% for image in schemaProduct.image %}
+                "{{ image.path }}"{% if schemaProduct.image|length > loop.index %},{% endif %}
+            {% endfor %}
+        ],
+        "sku": "{{ schemaProduct.sku }}",
+        "mpn": "{{ schemaProduct.mpn }}",
+        "brand": "{{ schemaProduct.brand }}",
+        "offers": {
+            "@type": "Offer",
+            "url": "{{ ''|page }}",
+            "price": "{{ schemaProduct.offerPrice }}",
+            "priceCurrency": "{{ schemaProduct.offerCurrency }}",
+            "availability": "{{ schemaProduct.offerAvailability }}",
+            "priceValidUntil": "{{ schemaProduct.validFrom|date('c') }}",
+            "seller": {
+                "@type": "Organization",
+                "name": "{{ schemaProduct.sellerName }}"
+            }
+        }
+    }
+    </script>
+{% endput %}

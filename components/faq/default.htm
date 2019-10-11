@@ -1,0 +1,22 @@
+{% put scripts %}
+    {% set schemaFaq = __SELF__.schemaFaq %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {% for question in schemaFaq.records %}
+                {
+                    "@type": "Question",
+                    "name": "{{ attribute(question, schemaFaq.questionField) }}",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "{{ attribute(question, schemaFaq.answerField) }}"
+                    }
+                }
+                {% if schemaFaq.records|length > loop.index %},{% endif %}
+            {% endfor %}
+        ]
+    }
+    </script>
+{% endput %}

@@ -1,0 +1,26 @@
+{% put scripts %}
+    {% set schemaReview = __SELF__.schemaReview %}
+    <script type="application/ld+json">
+        [
+            {% for review in schemaReview.reviews %}
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Review",
+                    "itemReviewed": {
+                        "@type": "{{ schemaReview.itemReviewedType }}",
+                        "name": "{{ schemaReview.itemReviewedName }}"
+                    },
+                    "author": {
+                        "@type": "Person",
+                        "name": "{{ attribute(review, schemaReview.authorName) }}"
+                    },
+                    "reviewRating": {
+                        "@type": "Rating",
+                        "ratingValue": "{{ attribute(review, schemaReview.ratingField) }}",
+                        "bestRating": "{{ schemaReview.bestRating }}"
+                    }
+                }{% if schemaReview.reviews|length > loop.index %},{% endif %}
+            {% endfor %}
+        ]
+    </script>
+{% endput %}

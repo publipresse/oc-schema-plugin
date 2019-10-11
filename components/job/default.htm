@@ -1,0 +1,37 @@
+{% put scripts %}
+    {% set schemaJob = __SELF__.schemaJob %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "JobPosting",
+        "title": "{{ schemaJob.title }}",
+        "description": "{{ schemaJob.description }}",
+        "datePosted": "{{ schemaJob.datePosted|date('c') }}",
+        "validThrough": "{{ schemaJob.validThrough|date('c') }}",
+        "employmentType": "{{ schemaJob.employmentType }}",
+        "hiringOrganization": {
+            "@type": "Organization",
+            "name": "{{ schemaJob.hiringOrganizationName }}"
+        },
+        "jobLocation": {
+            "@type": "Place",
+            "address": {
+                "streetAddress": "{{ schemaJob.streetAddress }}",
+                "addressLocality": "{{ schemaJob.addressLocality }}",
+                "addressRegion": "{{ schemaJob.addressRegion }}",
+                "postalCode": "{{ schemaJob.postalCode }}",
+                "addressCountry": "{{ schemaJob.addressCountry }}"
+            }
+        },
+        "baseSalary": {
+            "@type": "MonetaryAmount",
+            "currency": "{{ schemaJob.baseSalaryCurrency }}",
+            "value": {
+                "@type": "QuantitativeValue",
+                "value": {{ schemaJob.baseSalaryValue }},
+                "unitText": "{{ schemaJob.baseSalaryUnit }}"
+            }
+        }
+    }
+    </script>
+{% endput %}

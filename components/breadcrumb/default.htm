@@ -1,0 +1,19 @@
+{% put scripts %}
+    {% set schemaBreadcrumb = __SELF__.schemaBreadcrumb %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {% for item in schemaBreadcrumb %}
+                {
+                    "@type": "ListItem",
+                    "position": {{ loop.index }},
+                    "name": "{{ item.name }}",
+                    "item": "{{ item.page|page({(item.param_name):item.param_value}) }}"
+                }{% if schemaBreadcrumb|length > loop.index %},{% endif %}
+            {% endfor %}
+        ]
+    }
+    </script>
+{% endput %}

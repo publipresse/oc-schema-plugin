@@ -1,0 +1,15 @@
+{% put scripts %}
+    {% set schemaCourse = __SELF__.schemaCourse %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "{{ schemaCourse.name }}",
+        "description": "{{ schemaCourse.description }}",
+        "provider": {
+            "@type": "Organization",
+            "name": "{{ schemaCourse.providerName }}"
+        }
+    }
+    </script>
+{% endput %}

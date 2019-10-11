@@ -1,0 +1,42 @@
+{% put scripts %}
+    {% set schemaEvent = __SELF__.schemaEvent %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "name": "{{ schemaEvent.name }}",
+        "description": "{{ schemaEvent.description }}",
+        "image": [
+            {% for image in schemaEvent.image %}
+                "{{ image.path }}"{% if schemaEvent.image|length > loop.index %},{% endif %}
+            {% endfor %}
+        ],
+        "startDate": "{{ schemaEvent.startDate|date('c') }}",
+        "endDate": "{{ schemaEvent.endDate|date('c') }}",
+        "location": {
+            "@type": "Place",
+            "name": "{{ schemaEvent.locationName }}",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "{{ schemaEvent.streetAddress }}",
+                "addressLocality": "{{ schemaEvent.addressLocality }}",
+                "postalCode": "{{ schemaEvent.postalCode }}",
+                "addressRegion": "{{ schemaEvent.addressRegion }}",
+                "addressCountry": "{{ schemaEvent.addressCountry }}"
+            }
+        },
+        "offers": {
+            "@type": "Offer",
+            "url": "{{ ''|page }}",
+            "price": "{{ schemaEvent.offerPrice }}",
+            "priceCurrency": "{{ schemaEvent.offerCurrency }}",
+            "availability": "{{ schemaEvent.offerAvailability }}",
+            "validFrom": "{{ schemaEvent.validFrom|date('c') }}"
+        },
+        "performer": {
+            "@type": "{{ schemaEvent.performerType }}",
+            "name": "{{ schemaEvent.performerName }}"
+        }
+    }
+    </script>
+{% endput %}

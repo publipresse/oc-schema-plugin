@@ -1,0 +1,76 @@
+{% put scripts %}
+    {% set schemaBusiness = __SELF__.schemaBusiness %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "{{ schemaBusiness.type }}",
+        "@id": "{{ ''|page }}",
+        "name": "{{ schemaBusiness.name }}",
+        "url": "{{ ''|page }}",
+        "telephone": "{{ schemaBusiness.telephone }}",
+        "image": [
+            {% for image in schemaBusiness.image %}
+                "{{ image.path }}"{% if loop.index < schemaBusiness.image|length %},{% endif %}
+            {% endfor %}
+        ],
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "{{ schemaBusiness.streetAddress }}",
+            "addressLocality": "{{ schemaBusiness.addressLocality }}",
+            "postalCode": "{{ schemaBusiness.postalCode }}",
+            "addressRegion": "{{ schemaBusiness.addressRegion }}",
+            "addressCountry": "{{ schemaBusiness.addressCountry }}"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "{{ schemaBusiness.geoLatitude }}",
+            "longitude": "{{ schemaBusiness.geoLongitude }}"
+        },
+        "priceRange": "{{ schemaBusiness.priceRange }}",
+        "openingHoursSpecification": [
+                {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": "Monday",
+                    "opens": "{{ schemaBusiness.openingHoursMonday[0] }}",
+                    "closes": "{{ schemaBusiness.openingHoursMonday[1] }}"
+                },
+                {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": "Tuesday",
+                    "opens": "{{ schemaBusiness.openingHoursTuesday[0] }}",
+                    "closes": "{{ schemaBusiness.openingHoursTuesday[1] }}"
+                },
+                {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": "Wednesday",
+                    "opens": "{{ schemaBusiness.openingHoursWednesday[0] }}",
+                    "closes": "{{ schemaBusiness.openingHoursWednesday[1] }}"
+                },
+                {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": "Thursday",
+                    "opens": "{{ schemaBusiness.openingHoursThursday[0] }}",
+                    "closes": "{{ schemaBusiness.openingHoursThursday[1] }}"
+                },
+                {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": "Friday",
+                    "opens": "{{ schemaBusiness.openingHoursFriday[0] }}",
+                    "closes": "{{ schemaBusiness.openingHoursFriday[1] }}"
+                },
+                {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": "Saturday",
+                    "opens": "{{ schemaBusiness.openingHoursSaturday[0] }}",
+                    "closes": "{{ schemaBusiness.openingHoursSaturday[1] }}"
+                },
+                {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": "Sunday",
+                    "opens": "{{ schemaBusiness.openingHoursSunday[0] }}",
+                    "closes": "{{ schemaBusiness.openingHoursSunday[1] }}"
+                }
+        ]
+    }
+    </script>
+{% endput %}

@@ -1,0 +1,42 @@
+{% put scripts %}
+    {% set schemaRecipe = __SELF__.schemaRecipe %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Recipe",
+        "name": "{{ schemaRecipe.name }}",
+        "image": [
+            {% for image in schemaRecipe.image %}
+                "{{ image.path }}"{% if loop.index < schemaRecipe.image|length %},{% endif %}
+            {% endfor %}
+        ],
+        "author": {
+            "@type": "{{ schemaRecipe.authorType }}",
+            "name": "{{ schemaRecipe.authorName }}"
+        },
+        "datePublished": "{{ schemaRecipe.datePublished }}",
+        "description": "{{ schemaRecipe.description }}",
+        "keywords": "{{ schemaRecipe.keywords }}",
+        "prepTime": "PT{{ schemaRecipe.prepTime }}M",
+        "cookTime": "PT{{ schemaRecipe.cookTime }}M",
+        "totalTime": "PT{{ schemaRecipe.totalTime }}M",
+        "recipeYield": "{{ schemaRecipe.recipeYield }}",
+        "recipeCategory": "{{ schemaRecipe.recipeCategory }}",
+        "recipeCuisine": "{{ schemaRecipe.recipeCuisine }}",
+        "nutrition": {
+            "@type": "NutritionInformation",
+            "calories": "{{ schemaRecipe.recipeCalories }} calories"
+        },
+        "recipeIngredient": [
+            {% for ingredient in schemaRecipe.recipeIngredient %}
+                "{{ ingredient }}"{% if schemaRecipe.recipeIngredient|length > loop.index %},{% endif %}
+            {% endfor %}
+        ],
+        "recipeInstructions": [
+            {% for instruction in schemaRecipe.recipeInstructions %}
+                "{{ instruction }}"{% if schemaRecipe.recipeInstructions|length > loop.index %},{% endif %}
+            {% endfor %}
+        ]
+    }
+    </script>
+{% endput %}

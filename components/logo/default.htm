@@ -1,0 +1,11 @@
+{% put scripts %}
+    {% set schemaLogo = __SELF__.schemaLogo %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "url": "{{ ''|page }}",
+        "logo": "{{ schemaLogo|theme }}"
+    }
+    </script>
+{% endput %}

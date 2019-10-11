@@ -1,0 +1,29 @@
+{% put scripts %}
+    {% set schemaContact = __SELF__.schemaContact %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "url": "{{ ''|page }}",
+        "contactPoint": [
+            {% for contact in schemaContact %}
+                {
+                    "@type": "ContactPoint",
+                    {% for key, value in contact %}
+                        {% if value is iterable %}
+                            "{{ key }}": [
+                                {% for element in value %}
+                                    "{{ element }}"{% if value|length > loop.index %},{% endif %}
+                                {% endfor %}
+                            ]
+                        {% else %}
+                            "{{ key }}": "{{ value }}"
+                        {% endif %}
+                        {% if contact|length > loop.index %},{% endif %}
+                    {% endfor %}
+                }{% if schemaContact|length > loop.index %},{% endif %}
+            {% endfor %}
+        ]
+    }
+    </script>
+{% endput %}

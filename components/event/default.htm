@@ -6,11 +6,15 @@
         "@type": "Event",
         "name": "{{ schemaEvent.name }}",
         "description": "{{ schemaEvent.description }}",
-        "image": [
-            {% for image in schemaEvent.image %}
-                "{{ image.path }}"{% if schemaEvent.image|length > loop.index %},{% endif %}
-            {% endfor %}
-        ],
+        {% if schemaEvent.image is iterable %}
+            "image": [
+                {% for image in schemaEvent.image %}
+                    "{{ image.path }}"{% if loop.index < schemaEvent.image|length %},{% endif %}
+                {% endfor %}
+            ],
+        {% else %}
+            "image": "{{ schemaEvent.image.path }}",
+        {% endif %}
         "startDate": "{{ schemaEvent.startDate|date('c') }}",
         "endDate": "{{ schemaEvent.endDate|date('c') }}",
         "location": {

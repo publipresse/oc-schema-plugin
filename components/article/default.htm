@@ -9,11 +9,15 @@
             "@id": "{{ ''|page }}"
         },
         "headline": "{{ schemaArticle.headline }}",
-        "image": [
-            {% for image in schemaArticle.image %}
-                "{{ image.path }}"{% if loop.index < schemaArticle.image|length %},{% endif %}
-            {% endfor %}
-        ],
+        {% if schemaArticle.image is iterable %}
+            "image": [
+                {% for image in schemaArticle.image %}
+                    "{{ image.path }}"{% if loop.index < schemaArticle.image|length %},{% endif %}
+                {% endfor %}
+            ],
+        {% else %}
+            "image": "{{ schemaArticle.image.path }}",
+        {% endif %}
         "datePublished": "{{ schemaArticle.datePublished|date('c') }}",
         "dateModified": "{{ schemaArticle.dateModified|date('c') }}",
         "author": {

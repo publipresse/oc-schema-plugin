@@ -5,11 +5,15 @@
         "@context": "https://schema.org",
         "@type": "Recipe",
         "name": "{{ schemaRecipe.name }}",
-        "image": [
-            {% for image in schemaRecipe.image %}
-                "{{ image.path }}"{% if loop.index < schemaRecipe.image|length %},{% endif %}
-            {% endfor %}
-        ],
+        {% if schemaRecipe.image is iterable %}
+            "image": [
+                {% for image in schemaRecipe.image %}
+                    "{{ image.path }}"{% if loop.index < schemaRecipe.image|length %},{% endif %}
+                {% endfor %}
+            ],
+        {% else %}
+            "image": "{{ schemaRecipe.image.path }}",
+        {% endif %}
         "author": {
             "@type": "{{ schemaRecipe.authorType }}",
             "name": "{{ schemaRecipe.authorName }}"

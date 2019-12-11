@@ -6,11 +6,15 @@
         "@type": "Product",
         "name": "{{ schemaProduct.name }}",
         "description": "{{ schemaProduct.description }}",
-        "image": [
-            {% for image in schemaProduct.image %}
-                "{{ image.path }}"{% if schemaProduct.image|length > loop.index %},{% endif %}
-            {% endfor %}
-        ],
+        {% if schemaArticle.image is iterable %}
+            "image": [
+                {% for image in schemaProduct.image %}
+                    "{{ image.path }}"{% if loop.index < schemaProduct.image|length %},{% endif %}
+                {% endfor %}
+            ],
+        {% else %}
+            "image": "{{ schemaProduct.image.path }}",
+        {% endif %}
         "sku": "{{ schemaProduct.sku }}",
         "mpn": "{{ schemaProduct.mpn }}",
         "brand": "{{ schemaProduct.brand }}",

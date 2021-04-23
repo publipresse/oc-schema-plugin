@@ -1,5 +1,5 @@
 {
-    "name": "publipresse/oc-schema-plugin",
+    "name": "publipresse/schema-plugin",
     "type": "october-plugin",
     "description": "Plugin to generate Json LD files for structurate data",
     "require": {

@@ -1,0 +1,8 @@
+{
+    "name": "publipresse/oc-schema-plugin",
+    "type": "october-plugin",
+    "description": "Plugin to generate Json LD files for structurate data",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}

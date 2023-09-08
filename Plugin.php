@@ -18,6 +18,7 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
+            'Publipresse\Schema\Components\Name' => 'schemaName',
             'Publipresse\Schema\Components\Logo' => 'schemaLogo',
             'Publipresse\Schema\Components\Article' => 'schemaArticle',
             'Publipresse\Schema\Components\Breadcrumb' => 'schemaBreadcrumb',

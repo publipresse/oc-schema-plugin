@@ -20,8 +20,9 @@ class Logo extends ComponentBase
             'logo' => [
                 'title'             => 'Logo',
                 'description'       => 'Path to the website logo (relative to theme path)',
-                'default'           => 'assets/img/logo.png',
-                'showExternalParam' => false,
+                'placeholder'           => 'assets/img/logo.svg',
+                'showExternalParam' => true,
+                'required' => true,
             ],
         ];
     }

@@ -1,11 +1,13 @@
-{% put scripts %}
-    {% set schemaLogo = __SELF__.schemaLogo %}
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "url": "{{ ''|page }}",
-        "logo": "{{ schemaLogo|theme }}"
-    }
-    </script>
-{% endput %}
+{% if schemaLogo is not empty and this.page.url == '/' %}
+    {% put scripts %}    
+        {% set schemaLogo = __SELF__.schemaLogo %}
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "url": "{{ this|page }}",
+            "logo": "{{ schemaLogo|theme }}"
+        }
+        </script>
+    {% endput %}
+{% endif %}

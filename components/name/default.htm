@@ -1,0 +1,13 @@
+{% if schemaName is not empty and this.page.url == '/' %}
+    {% put scripts %}
+        {% set schemaName = __SELF__.schemaName %}
+        <script type="application/ld+json">
+        {
+            "@context" : "https://schema.org",
+            "@type" : "WebSite",
+            "name" : "{{ schemaName }}",
+            "url" : "{{ this|page }}"
+        }
+        </script>
+    {% endput %}
+{% endif %}
